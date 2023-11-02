@@ -1,0 +1,49 @@
+import React from "react";
+
+import styles from "./CountryList.module.css";
+import { CityInterface } from "../interfaces/CityInterface";
+import Spinner from "./Spinner";
+import Message from "./Message";
+import CountryItem from "./CountryItem";
+
+interface CityListProps {
+  cities: CityInterface[];
+  isLoading: boolean;
+}
+
+const CountryList: React.FC<CityListProps> = ({ cities, isLoading }) => {
+  // const countries = cities.reduce(
+  //   (acc: { country: string; emoji: string }[], city) => {
+  //     if (!acc.map((el) => el.country).includes(city.country)) {
+  //       return [...acc, { country: city.country, emoji: city.emoji }];
+  //     } else {
+  //       return acc;
+  //     }
+  //   },
+  //   []
+  // );
+
+  const uniqueCountries: Set<string> = new Set();
+  const countries: { country: string; emoji: string }[] = [];
+  cities.forEach((city) => {
+    if (!uniqueCountries.has(city.country)) {
+      uniqueCountries.add(city.country);
+      countries.push({ country: city.country, emoji: city.emoji });
+    }
+  });
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (!cities.length && !isLoading) {
+    return <Message message="Add a city by clicking on the Map" />;
+  }
+  return (
+    <ul className={styles.cityList}>
+      {countries.map((country) => (
+        <CountryItem country={country} key={country.country} />
+      ))}
+    </ul>
+  );
+};
+
+export default CountryList;
