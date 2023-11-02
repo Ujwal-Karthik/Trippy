@@ -1,17 +1,15 @@
 import React from "react";
 
 import styles from "./CountryList.module.css";
-import { CityInterface } from "../interfaces/CityInterface";
+
 import Spinner from "./Spinner";
 import Message from "./Message";
 import CountryItem from "./CountryItem";
+import { useCities } from "../hooks/useCities";
 
-interface CityListProps {
-  cities: CityInterface[];
-  isLoading: boolean;
-}
+const CountryList: React.FC = () => {
+  const { cities, isLoading } = useCities();
 
-const CountryList: React.FC<CityListProps> = ({ cities, isLoading }) => {
   // const countries = cities.reduce(
   //   (acc: { country: string; emoji: string }[], city) => {
   //     if (!acc.map((el) => el.country).includes(city.country)) {

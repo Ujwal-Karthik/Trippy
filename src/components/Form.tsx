@@ -56,11 +56,11 @@ function Form() {
         <Button
           type="back"
           onClick={(e) => {
+            e.preventDefault();
             navigate(-1);
-            e.preventDefault;
           }}
         >
-          &larr; Back
+          Back
         </Button>
       </div>
     </form>
