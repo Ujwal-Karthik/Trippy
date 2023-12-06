@@ -42,7 +42,8 @@ const CitiesProvider: React.FC<CitiesProviderProps> = ({ children }) => {
       setIsLoading(true);
       const res = await fetch(`${BASE_URL}/cities/${id}`);
       const data = await res.json();
-      setCity(data);
+      console.log(data);
+      if (data) setCity(data);
     } catch (error) {
       console.log(error);
     } finally {
